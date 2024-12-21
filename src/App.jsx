@@ -12,10 +12,11 @@ const App = () => {
         <Navbar />
         <div className="ml-1/4 w-3/4 p-6">
           <Routes>
-            <Route path="/visitor-approval" element={<VisitorApproval />} />
+            <Route path="/" element={<VisitorApproval />} />
             <Route path="/candidate-approval" element={< CandidateApproval />} />
             <Route path="/manage-event" element={<ManageEvent />} />
             <Route path="/manage-winner" element={< ManageWinner />} />
+
           </Routes>
         </div>
       </div>

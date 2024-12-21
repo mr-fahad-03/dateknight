@@ -15,9 +15,9 @@ const Navbar = () => {
       </div>
       <nav className="flex flex-col mt-10 space-y-4 text-white font-semibold">
         <Link
-          to="/visitor-approval"
+          to="/"
           className={`p-4 rounded-md mx-4 ${
-            location.pathname === "/visitor-approval"
+            location.pathname === "/"
               ? "bg-white text-usedColor"
               : "hover:bg-orange-300"
           }`}
