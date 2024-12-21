@@ -16,51 +16,9 @@ import {
 // Register required chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-
 const CandidateApproval = () => {
   const [selectedProfile, setSelectedProfile] = useState(null);
-
-
-    // Data for "Total Signups this Week"
-    const weeklyData = {
-        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        datasets: [
-          {
-            label: "Signups",
-            data: [50, 75, 100, 120, 150, 200, 250],
-            backgroundColor: "#9a3412",
-           
-          },
-        ],
-      };
-    
-      // Data for "Total Signups this Year"
-      const yearlyData = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [
-          {
-            label: "Signups",
-            data: [400, 450, 300, 500, 600, 700, 650, 400, 300, 200, 100, 50],
-            backgroundColor: "#9a3412",
-          },
-        ],
-      };
-    
-      // Options for charts
-      const options = {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "top",
-          },
-          title: {
-            display: true,
-            text: "Signups Data",
-          },
-        },
-      };
-
-  const candidates = [
+  const [candidates, setCandidates] = useState([
     {
       id: 1,
       name: "Joey Tribbs",
@@ -69,13 +27,13 @@ const CandidateApproval = () => {
         name: "Joey Tribbs",
         email: "joeytribbs@gmail.com",
         location: "NYC",
-        image: "https://tbcdn.talentbrew.com/company/152/cms/v4_0/img/hero-home-sm.webp",
+        image:
+          "https://tbcdn.talentbrew.com/company/152/cms/v4_0/img/hero-home-sm.webp",
         facebook: "joeytribbs/facebook",
         instagram: "joeytribbs/instagram",
         contact: "6363113138",
         userType: "Candidate",
         banCount: 0,
-
         about:
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry...",
         events: [
@@ -125,7 +83,37 @@ const CandidateApproval = () => {
         events: ["Event A", "Event B", "Event C"],
       },
     },
-  ];
+  ]);
+
+  const weeklyData = {
+    labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    datasets: [
+      {
+        label: "Signups",
+        data: [50, 75, 100, 120, 150, 200, 250],
+        backgroundColor: "#9a3412",
+      },
+    ],
+  };
+
+  const yearlyData = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    datasets: [
+      {
+        label: "Signups",
+        data: [400, 450, 300, 500, 600, 700, 650, 400, 300, 200, 100, 50],
+        backgroundColor: "#9a3412",
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: { position: "top" },
+      title: { display: true, text: "Signups Data" },
+    },
+  };
 
   const handleViewProfile = (profile) => {
     setSelectedProfile(profile);
@@ -135,56 +123,65 @@ const CandidateApproval = () => {
     setSelectedProfile(null);
   };
 
+  const handleToggleApproval = (id) => {
+    const updatedCandidates = candidates.map((candidate) =>
+      candidate.id === id ? { ...candidate, approve: !candidate.approve } : candidate
+    );
+    setCandidates(updatedCandidates);
+  };
+
   return (
-    <div className=" min-h-screen ml-[30%] w-full">
+    <div className="min-h-screen ml-[30%] w-full">
       {/* Header */}
-           <div className="flex justify-between items-center">
-             <h1 className="text-4xl font-bold text-usedColor mb-6">Visitor Approval</h1>
-             <CgProfile className="text-3xl text-usedColor" />
-           </div>
-           <h2 className="text-3xl font-semibold text-usedColor mb-6">Dashboard</h2>
-     
-           {/* Graph Section */}
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-             {/* Weekly Signups */}
-             <div className="border rounded-md p-4 bg-white shadow-md">
-               <h3 className="text-lg font-bold text-orange-800">Total Signups this Week</h3>
-               <Bar data={weeklyData} options={options}  />
-             </div>
-     
-             {/* Yearly Signups */}
-             <div className="border rounded-md p-4 bg-white shadow-md">
-               <h3 className="text-lg font-bold text-orange-800">Total Signups this Year</h3>
-               <Bar data={yearlyData} options={options} />
-             </div>
-           </div>
-     
-      <table className="mt-8 w-full border-collapse border border-orange-200">
-        <thead>
+      <div className="flex justify-between items-center">
+        <h1 className="text-4xl font-bold text-usedColor mb-6">Visitor Approval</h1>
+        <CgProfile className="text-3xl text-usedColor" />
+      </div>
+      <h2 className="text-3xl font-semibold text-usedColor mb-6">Dashboard</h2>
+
+      {/* Graph Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-28">
+        {/* Weekly Signups */}
+        <div className="border rounded-md p-4 bg-white border-black shadow-md">
+          <h3 className="text-lg font-bold text-orange-800">Total Signups this Week</h3>
+          <Bar data={weeklyData} options={options} />
+        </div>
+
+        {/* Yearly Signups */}
+        <div className="border rounded-md p-4 bg-white border-black shadow-md">
+          <h3 className="text-lg font-bold text-orange-800">Total Signups this Year</h3>
+          <Bar data={yearlyData} options={options} />
+        </div>
+      </div>
+
+      {/* Table Section */}
+      <table className="mt-8 w-full border-collapse border border-grey-300">
+        <thead className="bg-orange-200 text-orange-800">
           <tr>
-            <th className="p-4 border border-orange-200">NAME</th>
-            <th className="p-4 border border-orange-200">EMAIL</th>
-            <th className="p-4 border border-orange-200">APPROVE</th>
-            <th className="p-4 border border-orange-200">ACTION</th>
-            <th className="p-4 border border-orange-200">BAN PERIOD</th>
+            <th className="p-4 border border-grey-300">NAME</th>
+            <th className="p-4 border border-grey-300">EMAIL</th>
+            <th className="p-4 border border-grey-300">APPROVE</th>
+            <th className="p-4 border border-grey-300">ACTION</th>
+            <th className="p-4 border border-grey-300">BAN PERIOD</th>
           </tr>
         </thead>
         <tbody>
           {candidates.map((candidate) => (
             <tr key={candidate.id}>
-              <td className="p-4 border border-orange-200">{candidate.name}</td>
-              <td className="p-4 border border-orange-200">{candidate.email}</td>
-              <td className="p-4 border border-orange-200">
-                <label className="flex items-center">
+              <td className="p-4 border border-grey-300">{candidate.name}</td>
+              <td className="p-4 border border-grey-300">{candidate.email}</td>
+              <td className="p-4 border border-grey-300">
+                <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
                     checked={candidate.approve}
-                    className="h-5 w-5"
-                    readOnly
+                    onChange={() => handleToggleApproval(candidate.id)}
+                    className="sr-only peer"
                   />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-300 rounded-full peer peer-checked:bg-orange-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
                 </label>
               </td>
-              <td className="p-4 border border-orange-200">
+              <td className="p-4 border border-grey-300">
                 <button
                   className="text-orange-700 underline"
                   onClick={() => handleViewProfile(candidate.profile)}
@@ -192,15 +189,13 @@ const CandidateApproval = () => {
                   View Profile
                 </button>
               </td>
-              <td className="p-4 border border-orange-200">{candidate.banPeriod}</td>
+              <td className="p-4 border border-grey-300">{candidate.banPeriod}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {selectedProfile && (
-        <ProfileModal profile={selectedProfile} onClose={handleCloseModal} />
-      )}
+      {selectedProfile && <ProfileModal profile={selectedProfile} onClose={handleCloseModal} />}
     </div>
   );
 };

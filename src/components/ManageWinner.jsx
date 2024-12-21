@@ -29,10 +29,10 @@ const ManageWinner = () => {
       </div>
 
       {/* Table */}
-      <div className="mt-10 bg-white text-orange-800 shadow-md rounded-md p-4">
+      <div className="mt-10 bg-white text-orange-800  rounded-md p-4">
         <div className="overflow-x-auto">
           <table className="w-full border border-collapse">
-            <thead className="bg-orange-100 text-orange-800">
+            <thead className="bg-orange-200 text-orange-800">
               <tr>
                 <th className="p-3 text-center">ID</th>
                 <th className="p-3 text-center">CHALLENGER</th>
@@ -46,7 +46,7 @@ const ManageWinner = () => {
               {events.map((event, index) => (
                 <tr
                   key={index}
-                  className={`text-center ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
+                  className={`text-center ${index % 2 === 0 ? "bg-white" : "bg-white"}`}
                 >
                   <td className="p-3">{event.id}</td>
                   <td className="p-3">{event.challenger}</td>
@@ -72,7 +72,7 @@ const ManageWinner = () => {
                     <select
                       value={event.winner}
                       onChange={(e) => handleWinnerChange(index, e.target.value)}
-                      className="text-center border rounded-md p-1 w-40 bg-orange-50"
+                      className="text-center border rounded-md p-1 w-40 bg-white"
                     >
                       <option value="">Pending</option>
                       <option value={event.challenger}>{event.challenger}</option>

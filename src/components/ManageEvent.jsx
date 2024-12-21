@@ -32,16 +32,16 @@ const ManageEvent = () => {
   return (
     <div className="min-h-screen ml-[30%] w-full ">
       {/* Header */}
-      <div className="flex justify-between items-center mb-7">
-        <h1 className="text-3xl font-bold text-usedColor mt-2">Manage Event</h1>
+      <div className="flex justify-between items-center mb-9">
+        <h1 className="text-4xl font-bold text-usedColor mt-2">Manage Event</h1>
         <CgProfile className="text-4xl text-usedColor" />
       </div>
 
       {/* Table */}
-      <div className="mt-4 bg-white shadow-md rounded-md text-orange-800 p-4">
+      <div className="mt-6 bg-white  text-orange-800 p-4">
         <div className="overflow-x-auto">
           <table className="w-full border border-collapse">
-            <thead className=" text-orange-800">
+            <thead className=" text-orange-800 bg-orange-200">
               <tr>
                 <th className="p-3 text-center">ID</th>
                 <th className="p-3 text-center">CHALLENGER</th>
@@ -67,7 +67,7 @@ const ManageEvent = () => {
                       selected={event.date}
                       onChange={(date) => handleDateChange(date, index)}
                       placeholderText="Choose"
-                      className="text-center border rounded-md p-1 w-28"
+                      className="text-center border-none text-orange-800 rounded-md p-1 w-28"
                       dateFormat="dd/MM/yyyy"
                     />
                   </td>
@@ -77,7 +77,7 @@ const ManageEvent = () => {
                       selected={event.time}
                       onChange={(time) => handleTimeChange(time, index)}
                       placeholderText="Choose"
-                      className="text-center border rounded-md p-1 w-28"
+                      className="text-center border-none rounded-md text-orange-800 p-1 w-28"
                       showTimeSelect
                       showTimeSelectOnly
                       timeIntervals={15}
