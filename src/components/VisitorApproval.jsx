@@ -18,12 +18,13 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 const VisitorApproval = () => {
   // Data for "Total Signups this Week"
   const weeklyData = {
-    labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
       {
         label: "Signups",
         data: [50, 75, 100, 120, 150, 200, 250],
         backgroundColor: "#9a3412",
+        borderRadius: 5,
       },
     ],
   };
@@ -36,98 +37,102 @@ const VisitorApproval = () => {
         label: "Signups",
         data: [400, 450, 300, 500, 600, 700, 650, 400, 300, 200, 100, 50],
         backgroundColor: "#9a3412",
+        borderRadius: 5,
       },
     ],
   };
 
-  // Options for charts
-  const options = {
+  // Chart options
+  const chartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
       },
-      title: {
-        display: true,
-        text: "Signups Data",
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+      },
+      y: {
+        ticks: {
+          beginAtZero: true,
+        },
       },
     },
   };
 
   return (
-    <div className="min-h-screen ml-[30%] w-full">
+    <div className="min-h-screen  w-full ml-[20%] lg:ml-[30%]  lg:px-6">
       {/* Header */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-usedColor mb-6">Visitor Approval</h1>
-        <CgProfile className="text-3xl text-usedColor" />
+      <div className="flex justify-between items-center flex-wrap gap-4 pb-4 mb-6">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-usedColor">Visitor Approval</h1>
+        </div>
+        <CgProfile className="text-3xl sm:text-4xl text-usedColor" />
       </div>
-      <h2 className="text-2xl font-semibold text-usedColor mb-6">Dashboard</h2>
+
+      <h2 className="text-lg sm:text-3xl font-semibold text-usedColor mb-4 sm:mb-6">Dashboard</h2>
 
       {/* Graph Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-28">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         {/* Weekly Signups */}
-        <div className="border rounded-md p-4 bg-white shadow-md border-black">
-          <h3 className="text-lg font-bold text-orange-800">Total Signups this Week</h3>
-          <Bar data={weeklyData} options={options} />
+        <div className="border rounded-md p-4 bg-white shadow-md border-gray-200">
+          <h3 className="text-lg font-bold text-orange-800 mb-4">
+            Total Signups this Week
+          </h3>
+          <div className="relative h-64">
+            <Bar data={weeklyData} options={chartOptions} />
+          </div>
         </div>
 
         {/* Yearly Signups */}
-        <div className="border rounded-md p-4 bg-white shadow-md border-black">
-          <h3 className="text-lg font-bold text-orange-800">Total Signups this Year</h3>
-          <Bar data={yearlyData} options={options} />
+        <div className="border rounded-md p-4 bg-white shadow-md border-gray-200">
+          <h3 className="text-lg font-bold text-orange-800 mb-4">
+            Total Signups this Year
+          </h3>
+          <div className="relative h-64">
+            <Bar data={yearlyData} options={chartOptions} />
+          </div>
         </div>
       </div>
 
       {/* Table Section */}
-      <div className="mt-8 bg-white text-orange-800 border border-gray-200 rounded-md p-4">
+      <div className="mt-8 bg-white text-orange-800 border border-gray-200 rounded-md p-4 shadow-md">
+        <h3 className="text-lg font-bold text-orange-800 mb-4">Visitors</h3>
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse border-gray-200">
+          <table className="w-full  text-sm text-left border-collapse">
             <thead className="bg-orange-200 border-b border-gray-200">
               <tr>
                 <th className="p-3 text-center border-gray-200">NAME</th>
                 <th className="p-3 text-center border-gray-200">EMAIL</th>
                 <th className="p-3 text-center border-gray-200">APPROVE</th>
-                <th className="p-3 text-center border-gray-200 relative">
-                  ACTION
-                  <div className="inline-block ml-2 relative group">
-                    <IoIosInformationCircle className="text-xl pt-1 cursor-pointer" />
-                    {/* Tooltip */}
-                    <div
-                      className="absolute left-1/2 transform -translate-x-1/2 mt-3 w-64 px-4 py-2 bg-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      This will grant you the authority to ban individuals for a certain time frame.
-                    </div>
-                  </div>
-                </th>
+                <th className="p-3 text-center border-gray-200">ACTION</th>
                 <th className="p-3 text-center border-gray-200">BAN PERIOD</th>
               </tr>
             </thead>
             <tbody>
-              {[
-                { name: "Janice Han", email: "janicehan@gmail.com", banPeriod: "5 Months" },
-                { name: "Name 2", email: "name@two.com", banPeriod: "5 Years" },
-                { name: "Name 3", email: "name@three.com", banPeriod: "5 Days" },
-              ].map((user, index) => (
-                <tr
-                  key={index}
-                  className={`text-center border-b ${
-                    index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                  } border-gray-50`}
-                >
-                  <td className="p-3 border-gray-200">{user.name}</td>
-                  <td className="p-3 border-gray-200">{user.email}</td>
-                  <td className="p-3 border-gray-200">
+              {[{ name: "Janice Han", email: "janicehan@gmail.com", banPeriod: "5 Months" },
+               { name: "Name 2", email: "name@two.com", banPeriod: "5 Years" },
+               { name: "Name 3", email: "name@three.com", banPeriod: "5 Days" }].map((user, index) => (
+                <tr key={index} className={`text-center ${index % 2 === 0 ? "bg-gray-50" : "bg-white"} border-b border-gray-200`}>
+                  <td className="p-3">{user.name}</td>
+                  <td className="p-3">{user.email}</td>
+                  <td className="p-3">
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input type="checkbox" className="sr-only peer" />
                       <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-300 rounded-full peer peer-checked:bg-orange-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
                     </label>
                   </td>
-                  <td className="p-3 border-gray-200">
-                    <button className="hover:underline">
+                  <td className="p-3">
+                    <button className="text-red-500 hover:text-red-700">
                       <FaBan />
                     </button>
                   </td>
-                  <td className="p-3 border-gray-200">{user.banPeriod}</td>
+                  <td className="p-3">{user.banPeriod}</td>
                 </tr>
               ))}
             </tbody>

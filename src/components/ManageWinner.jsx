@@ -21,7 +21,7 @@ const ManageWinner = () => {
   };
 
   return (
-    <div className="min-h-screen ml-[30%] w-full">
+    <div className="min-h-screen ml-[30%] w-screen lg:w-full">
       {/* Header */}
       <div className="flex justify-between mt-3 items-center mb-6">
         <h1 className="text-3xl font-bold text-usedColor">Manage Winner</h1>

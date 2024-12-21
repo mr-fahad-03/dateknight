@@ -30,34 +30,31 @@ const ManageEvent = () => {
   };
 
   return (
-    <div className="min-h-screen ml-[30%] w-full ">
+    <div className="min-h-screen ml-[30%]  w-screen lg:w-full sm:px lg:px-8">
       {/* Header */}
-      <div className="flex justify-between items-center mb-9">
-        <h1 className="text-4xl font-bold text-usedColor mt-2">Manage Event</h1>
-        <CgProfile className="text-4xl text-usedColor" />
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl sm:text-4xl font-bold text-usedColor mt-2">Manage Event</h1>
+        <CgProfile className="text-3xl sm:text-4xl text-usedColor" />
       </div>
 
       {/* Table */}
-      <div className="mt-6 bg-white  text-orange-800 p-4">
+      <div className="mt-6 bg-white text-orange-800 p-4 rounded-lg shadow-md">
         <div className="overflow-x-auto">
-          <table className="w-full border border-collapse">
-            <thead className=" text-orange-800 bg-orange-200">
+          <table className="min-w-full table-auto">
+            <thead className="text-orange-800 bg-orange-200">
               <tr>
-                <th className="p-3 text-center">ID</th>
-                <th className="p-3 text-center">CHALLENGER</th>
-                <th className="p-3 text-center">OPPONENT</th>
-                <th className="p-3 text-center">EVENT DATE</th>
-                <th className="p-3 text-center">EVENT TIME</th>
-                <th className="p-3 text-center">APPROVE</th>
-                <th className="p-3 text-center">EVENT ACTION</th>
+                <th className="p-3 text-center text-sm sm:text-base">ID</th>
+                <th className="p-3 text-center text-sm sm:text-base">CHALLENGER</th>
+                <th className="p-3 text-center text-sm sm:text-base">OPPONENT</th>
+                <th className="p-3 text-center text-sm sm:text-base">EVENT DATE</th>
+                <th className="p-3 text-center text-sm sm:text-base">EVENT TIME</th>
+                <th className="p-3 text-center text-sm sm:text-base">APPROVE</th>
+                <th className="p-3 text-center text-sm sm:text-base">EVENT ACTION</th>
               </tr>
             </thead>
             <tbody>
               {events.map((event, index) => (
-                <tr
-                  key={index}
-                  className={`text-center ${index % 2 === 0 ? "bg-white" : "bg-white"}`}
-                >
+                <tr key={index} className={`text-center ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
                   <td className="p-3">{event.id}</td>
                   <td className="p-3">{event.challenger}</td>
                   <td className="p-3">{event.opponent}</td>
@@ -67,7 +64,7 @@ const ManageEvent = () => {
                       selected={event.date}
                       onChange={(date) => handleDateChange(date, index)}
                       placeholderText="Choose"
-                      className="text-center border-none text-orange-800 rounded-md p-1 w-28"
+                      className="text-center border-none text-orange-800 rounded-md p-1 w-full sm:w-28"
                       dateFormat="dd/MM/yyyy"
                     />
                   </td>
@@ -77,7 +74,7 @@ const ManageEvent = () => {
                       selected={event.time}
                       onChange={(time) => handleTimeChange(time, index)}
                       placeholderText="Choose"
-                      className="text-center border-none rounded-md text-orange-800 p-1 w-28"
+                      className="text-center border-none rounded-md text-orange-800 p-1 w-full sm:w-28"
                       showTimeSelect
                       showTimeSelectOnly
                       timeIntervals={15}
@@ -106,12 +103,12 @@ const ManageEvent = () => {
                       onClick={() =>
                         setShowScheduleOptions(showScheduleOptions === index ? null : index)
                       }
-                      className="bg-orange-800 text-white py-2 px-4 rounded-md hover:bg-orange-900"
+                      className="bg-orange-800 text-white py-2 px-4 rounded-md hover:bg-orange-900 w-full sm:w-auto"
                     >
                       Schedule Event
                     </button>
                     {showScheduleOptions === index && (
-                      <div className="absolute top-full left-0 mt-2 bg-white shadow-md border rounded-md z-10">
+                      <div className="absolute top-full left-0 mt-2 bg-white shadow-md border rounded-md z-10 w-full sm:w-auto">
                         <button
                           className="block w-full text-left px-4 py-2 hover:bg-gray-100"
                           onClick={() => alert("Schedule Later selected")}

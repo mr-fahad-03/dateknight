@@ -109,9 +109,32 @@ const CandidateApproval = () => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false, // Ensures responsiveness
     plugins: {
       legend: { position: "top" },
       title: { display: true, text: "Signups Data" },
+    },
+    scales: {
+      x: {
+        ticks: {
+          // Allow rotation to prevent overlap
+          maxRotation: 45,
+          minRotation: 30,
+          font: {
+            size: window.innerWidth < 768 ? 10 : 12, // Adjust font size based on screen size
+          },
+        },
+        grid: {
+          display: false,
+        },
+      },
+      y: {
+        ticks: {
+          font: {
+            size: window.innerWidth < 768 ? 10 : 12, // Adjust font size based on screen size
+          },
+        },
+      },
     },
   };
 
@@ -131,69 +154,71 @@ const CandidateApproval = () => {
   };
 
   return (
-    <div className="min-h-screen ml-[30%] w-full">
+    <div className="min-h-screen w-screen px-6 sm:px-6 lg:px-8 ml-[30%] lg:w-full">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h1 className="text-4xl font-bold text-usedColor mb-6">Visitor Approval</h1>
+        <h1 className="text-4xl font-bold text-usedColor mb-6">Candidate Approval</h1>
         <CgProfile className="text-3xl text-usedColor" />
       </div>
       <h2 className="text-3xl font-semibold text-usedColor mb-6">Dashboard</h2>
 
       {/* Graph Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-28">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Weekly Signups */}
-        <div className="border rounded-md p-4 bg-white border-black shadow-md">
+        <div className="border rounded-md p-4 bg-white border-black shadow-md" style={{ height: "300px" }}>
           <h3 className="text-lg font-bold text-orange-800">Total Signups this Week</h3>
-          <Bar data={weeklyData} options={options} />
+          <Bar data={weeklyData} options={options}/>
         </div>
 
         {/* Yearly Signups */}
-        <div className="border rounded-md p-4 bg-white border-black shadow-md">
+        <div className="border rounded-md p-4 bg-white border-black shadow-md" style={{ height: "300px" }}>
           <h3 className="text-lg font-bold text-orange-800">Total Signups this Year</h3>
           <Bar data={yearlyData} options={options} />
         </div>
       </div>
 
       {/* Table Section */}
-      <table className="mt-8 w-full border-collapse border border-grey-300">
-        <thead className="bg-orange-200 text-orange-800">
-          <tr>
-            <th className="p-4 border border-grey-300">NAME</th>
-            <th className="p-4 border border-grey-300">EMAIL</th>
-            <th className="p-4 border border-grey-300">APPROVE</th>
-            <th className="p-4 border border-grey-300">ACTION</th>
-            <th className="p-4 border border-grey-300">BAN PERIOD</th>
-          </tr>
-        </thead>
-        <tbody>
-          {candidates.map((candidate) => (
-            <tr key={candidate.id}>
-              <td className="p-4 border border-grey-300">{candidate.name}</td>
-              <td className="p-4 border border-grey-300">{candidate.email}</td>
-              <td className="p-4 border border-grey-300">
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={candidate.approve}
-                    onChange={() => handleToggleApproval(candidate.id)}
-                    className="sr-only peer"
-                  />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-300 rounded-full peer peer-checked:bg-orange-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
-                </label>
-              </td>
-              <td className="p-4 border border-grey-300">
-                <button
-                  className="text-orange-700 underline"
-                  onClick={() => handleViewProfile(candidate.profile)}
-                >
-                  View Profile
-                </button>
-              </td>
-              <td className="p-4 border border-grey-300">{candidate.banPeriod}</td>
+      <div className="overflow-x-auto mt-8">
+        <table className="w-full border-collapse border border-grey-300">
+          <thead className="bg-orange-200 text-orange-800">
+            <tr>
+              <th className="p-4 border border-grey-300">NAME</th>
+              <th className="p-4 border border-grey-300">EMAIL</th>
+              <th className="p-4 border border-grey-300">APPROVE</th>
+              <th className="p-4 border border-grey-300">ACTION</th>
+              <th className="p-4 border border-grey-300">BAN PERIOD</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {candidates.map((candidate) => (
+              <tr key={candidate.id}>
+                <td className="p-4 border border-grey-300">{candidate.name}</td>
+                <td className="p-4 border border-grey-300">{candidate.email}</td>
+                <td className="p-4 border border-grey-300">
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={candidate.approve}
+                      onChange={() => handleToggleApproval(candidate.id)}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-300 rounded-full peer peer-checked:bg-orange-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                  </label>
+                </td>
+                <td className="p-4 border border-grey-300">
+                  <button
+                    className="text-orange-700 underline"
+                    onClick={() => handleViewProfile(candidate.profile)}
+                  >
+                    View Profile
+                  </button>
+                </td>
+                <td className="p-4 border border-grey-300">{candidate.banPeriod}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {selectedProfile && <ProfileModal profile={selectedProfile} onClose={handleCloseModal} />}
     </div>
